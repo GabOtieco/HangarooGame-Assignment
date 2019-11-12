@@ -1,0 +1,54 @@
+import random
+ABC = ['a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p','q','r','s','t','u','v','w','x','y','z']
+wordList = ['stick','banana','hotdog', 'eggplant', 'cocumber','egg', 'ruler', 'pogisisirmonmon', 'spider', 'spiderman']
+secretWord = random.choice(wordList); length_word = len(secretWord); lettersGuessed =[]; guessWord =[]
+
+def start():
+    print ("Hello Player!\n")
+    print ("Welcome to Hangaroo Game!\n")
+start()
+
+def secret():
+    for character in secretWord:
+        guessWord.append("_")
+        
+    print ("The word you have to guess consists of ", length_word, "characters")
+    print (' '.join(guessWord))
+    print ("After 6 mistakes, GameOver!") 
+        
+def guessing():
+    turns = 0
+    while turns < 6:
+        print ("\n", ' '.join(ABC))
+        guess = input("Letter: \n").lower()
+        
+        if guess not in ABC:
+            print ("Not a Letter, Please Try Again...")
+            turns +=1
+            print("Mistakes Made: ", turns)
+        elif guess in lettersGuessed:
+            print("Already Used Letter, Please Try Again...")
+        else:
+            lettersGuessed.append(guess)
+            if guess in secretWord:
+                print ("Well Played")
+                for x in range(0, length_word):
+                    if secretWord[x] == guess:
+                        guessWord[x] = guess
+                        print(' '.join(guessWord))
+                ABC.remove(guess)
+            else:
+                print("Oops. Please Try Again...")
+                ABC.remove(guess)
+                turns += 1
+                print("Mistakes Made: ", turns)
+                if turns == 6:
+                    print("Sorry the kangaroo died.")
+                    print("The secret word was", secretWord)
+                    print("GameOver! Try Better Next Time")
+                    break
+        if '_' not in guessWord:
+                        print("You Won, Congratulation!")
+                        break              
+secret()
+guessing()
